@@ -141,3 +141,14 @@ while not_quit:
                 not_yet_quit = False
                 count = 0
 
+#      GROUP 8 MEMBERS
+# Kisakye Joshua 2021/BSE/062/PS
+# Kibalama James 2021/BSE/058/PS
+# Abaho Davis 2021/BSE/001/PS
+# Amos Merber 2021/BSE/018/PS
+# Ntwari Reagan 2021/BSE/134/PS
+
+#DATE: 21/02/2022
+
+
+
