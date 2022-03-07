@@ -1,3 +1,126 @@
+def display_stock():
+    print('Stock contains:')
+    print(f'{nickels} nickels')
+    print(f'{dimes} dimes')
+    print(f'{quarters} quarters')
+    print(f'{ones} ones')
+    print(f'{fives} fives')
+
+
+def calculate_num_of_dollars_and_cents(total_amount):
+    '''
+        This function converts a provides amount into dollars and cents
+        and prints the result
+    '''
+    dollars = int(total_amount // 1)
+    cents = int(round(total_amount * 100) % 100)
+    if dollars <= 0:
+        print(f'Total :{int(cents)} cents ')
+    else:
+        print(f'Total : {int(dollars)} dollars and {int(cents)} cents ')
+
+
+def display_menu():
+    '''
+        Prints the menu
+    '''
+    print('Menu for details: ')
+    print("  'n' - deposit a nickel")
+    print("  'd' - deposit a dime")
+    print("  'q' - deposit a quarter")
+    print("  'o' - deposit a one dollar")
+    print("  'f' - deposit a five dollar")
+    print("  'c' - cancel the purchase")
+
+
+def change():
+    '''
+        This calculates change to give to the customer
+    '''
+    print("Please take the change below.")
+    if num_of_quarters != 0:
+        print(f'   {int(num_of_quarters)} Quarters')
+    if num_of_dimes != 0:
+        print(f'   {int(num_of_dimes)} dimes')
+    if num_of_nickels != 0:
+        print(f'   {int(num_of_nickels)} nickels')
+
+
+def entered_paymentf():
+    if entered_payment == 'n':
+        return 0.05
+
+    elif entered_payment == 'd':
+        return 0.1
+
+    elif entered_payment == 'q':
+        return 0.25
+
+    elif entered_payment == 'o':
+        return 1
+
+    elif entered_payment == 'f':
+        return 5
+
+    elif entered_payment == 'c':
+        return 'c'
+    else:
+        passed_thru_try = True
+        print(f'Illegal selection: {entered_payment}')
+
+
+def num_of_quartersf(total_amount):
+    return int(total_amount * 100 // 25)
+
+
+def num_of_dimesf(total_amount):
+    amount_left_after_quarters = total_amount - (num_of_quarters * 0.25)
+    return int((amount_left_after_quarters * 100) // 10)
+
+
+def num_of_nickelsf(total_amount):
+    amount_left_after_dimes = (total_amount - (num_of_quarters * 0.25)) - (num_of_dimes * 0.1)
+    return int((amount_left_after_dimes * 100) // 5)
+
+
+def ismultipleof5(number):
+    if (float(number) * 100) % 5 == 0:
+        return True
+    else:
+        return False
+
+
+def isnonnegative(number):
+    if (float(price) / 100) >= 0:
+        return True
+    else:
+        return False
+
+
+def change_to_take():
+    print("Please take the change below.")
+    if num_of_quarters != 0:
+        print(f'   {int(num_of_quarters)} Quarters')
+    if num_of_dimes != 0:
+        print(f'   {int(num_of_dimes)} dimes')
+    if num_of_nickels != 0:
+        print(f'   {int(num_of_nickels)} nickels')
+
+
+def extranickels_to_num_of_dollars_and_cents(total_amount):
+    '''
+        This function converts a provides amount into dollars and cents
+        and prints the result
+    '''
+    total_amount = (total_amount * 5) / 100
+    dollars = int(total_amount // 1)
+    cents = int(round(total_amount * 100) % 100)
+    if dollars <= 0:
+        print(f'Amount due is :{int(cents)} cents ')
+    else:
+        print(f'Amount due is: {int(dollars)} dollars and {int(cents)} cents ')
+
+
 # intializing break statements
 not_passed_thru_except = True
 not_quit = True
@@ -18,12 +141,7 @@ print('Welcome to the vending machine payment maker program\npayment maker initi
 while not_quit:
     # Print the stock at the beginning
     if not_passed_thru_except:
-        print('Stock contains:')
-        print(f'{nickels} nickels')
-        print(f'{dimes} dimes')
-        print(f'{quarters} quarters')
-        print(f'{ones} ones')
-        print(f'{fives} fives')
+        display_stock()
 
     # Prompt user to enter price
     price = input("Enter the purchase price (xx.xx) or `q' to quit: ")
@@ -31,16 +149,12 @@ while not_quit:
     # intializing count for display of deposit menu
     count_for_deposit_menu = 0
     if price == 'q' or price == 'Q':
-        num_of_dollars = sum_of_price // 1
-        num_of_cents = sum_of_price % 1 * 100
-        if num_of_dollars <= 0:
-            print(f'Total :{int(num_of_cents)} cents ')
-        else:
-            print(f'Total : {int(num_of_dollars)} dollars and {int(num_of_cents)} cents ')
+        calculate_num_of_dollars_and_cents(sum_of_price)
+
         not_quit = False
     else:
         try:
-            if (float(price) * 100) % 5 == 0 and (float(price) / 100) >= 0:
+            if ismultipleof5(price) and isnonnegative(price):
                 price = float(price)
                 not_passed_thru_except = True
             else:
@@ -53,81 +167,42 @@ while not_quit:
         # Getting payment for the price
         payment = 0
         not_yet_quit = True
-        num_of_paymentDue_dollars = int(float(price) // 1)
-        num_of_paymentDue_cents = (int(float(price) * 100)) % 100
         while not_yet_quit and not_passed_thru_except:
             count_for_deposit_menu += 1
             if count_for_deposit_menu < 2:
-                print('Menu for details: ')
-                print("  'n' - deposit a nickel")
-                print("  'd' - deposit a dime")
-                print("  'q' - deposit a quarter")
-                print("  'o' - deposit a one dollar")
-                print("  'f' - deposit a five dollar")
-                print("  'c' - cancel the purchase")
-                if num_of_paymentDue_dollars < 1:
-                    print(f'Payment due: {num_of_paymentDue_cents} cents')
-                else:
-                    print(f'Payment due: {num_of_paymentDue_dollars} dollars and {num_of_paymentDue_cents} cents')
-            entered_payment = input('Indicate your deposit: ')
-            if entered_payment == 'c':
-                # Quarters
-                num_of_quarters01 = int(payment * 100 // 25)
-                # Dimes
-                amount_left_after_quarters01 = payment - (num_of_quarters01 * 0.25)
-                num_of_dimes01 = int((amount_left_after_quarters01 * 100) // 10)
-                print(f'no_of_dimes{amount_left_after_quarters01}')
-                # Nickels
-                amount_left_after_dimes01 = amount_left_after_quarters01 - (num_of_dimes01 * 10)
-                num_of_nickels01 = int((amount_left_after_dimes01 * 100) // 5)
-                print("Please take the change below.")
-                if num_of_quarters01 != 0:
-                    print(f'   {int(num_of_quarters01)} Quartes')
-                if num_of_dimes01 != 0:
-                    print(f'   {int(num_of_dimes01)} dimes')
-                if num_of_nickels01 != 0:
-                    print(f'   {int(num_of_nickels01)} nickels')
+                display_menu()
+                calculate_num_of_dollars_and_cents(float(price))
 
-                # Updating stock
-                nickels = nickels - int(num_of_nickels01)
-                dimes = dimes - int(num_of_dimes01)
-                quarters = quarters - int(num_of_quarters01)
-                break
+            entered_payment = input('Indicate your deposit: ')
 
             passed_thru_try = False
             try:
                 # Allow input of 'n', 'd', 'q', 'o' and 'f' and increment accordingly
                 if entered_payment == 'n':
-                    entered_payment = 0.05
                     nickels = nickels + 1
                 elif entered_payment == 'd':
-                    entered_payment = 0.1
                     dimes = dimes + 1
                 elif entered_payment == 'q':
-                    entered_payment = 0.25
                     quarters = quarters + 1
                 elif entered_payment == 'o':
-                    entered_payment = 1
                     ones = ones + 1
                 elif entered_payment == 'f':
-                    entered_payment = 5
                     fives = fives + 1
+                elif entered_payment == 'c':
+                    pass
                 else:
                     passed_thru_try = True
-                    print(f'Illegal selection: {entered_payment}')
+
+                entered_payment = entered_paymentf()
 
                 # Calculating payment due
                 if (not passed_thru_try):
-                    payment = payment + float(entered_payment)
-                    paymentDue = price - payment
-                    if paymentDue > 0:
-                        num_of_paymentDue_dollars = int(paymentDue // 1)
-                        num_of_paymentDue_cents = int(round(paymentDue % 1 * 100))
-                        if num_of_paymentDue_dollars <= 0:
-                            print(f'Payment due: {num_of_paymentDue_cents} cents')
-                        else:
-                            print(f'Payment due: {num_of_paymentDue_dollars} dollars and {num_of_paymentDue_cents} cents')
-                    elif paymentDue == 0:
+                    if entered_payment != 'c':
+                        payment = payment + float(entered_payment)
+                        paymentDue = price - payment
+                    if paymentDue > 0 and entered_payment != 'c':
+                        calculate_num_of_dollars_and_cents(paymentDue)
+                    elif paymentDue == 0 and entered_payment != 'c':
                         sum_of_price = sum_of_price + price
                         print('Please take the change below')
                         print('  No change due')
@@ -135,40 +210,46 @@ while not_quit:
                     else:
                         # Calculating change in terms of dimes and nickels
                         paymentDue = abs(paymentDue)
-                        print(paymentDue,'paydue')
+                        if entered_payment == 'c':
+                            paymentDue = payment
                         # Quarters
-                        num_of_quarters = int(paymentDue * 100 // 25)
+                        num_of_quarters = num_of_quartersf(paymentDue)
+                        if num_of_quarters > quarters:
+                            num_of_quarters = quarters
                         # Dimes
-                        amount_left_after_quarters = paymentDue - (num_of_quarters * 0.25)
-                        num_of_dimes = int((amount_left_after_quarters * 100) // 10)
+                        num_of_dimes = num_of_dimesf(paymentDue)
+                        if num_of_dimes > dimes:
+                            num_of_dimes = dimes
                         # Nickels
-                        amount_left_after_dimes = amount_left_after_quarters - (num_of_dimes * 0.1)
-                        num_of_nickels = int((amount_left_after_dimes * 100) // 5)
-
-
+                        num_of_nickels = num_of_nickelsf(paymentDue)
+                        if num_of_nickels > nickels:
+                            extra_nickels = num_of_nickels - nickels
+                            num_of_nickels = nickels
+                            if extra_nickels > 0:
+                                print('Machine is out of change.')
+                                print('See store manager for remaining refund.')
+                                extranickels_to_num_of_dollars_and_cents(extra_nickels)
 
                         # subtracting change from the stock in form of coins awarded to buyer
 
+                        # Quarters
                         quarters = quarters - num_of_quarters
+
+                        # Dimes
                         dimes = dimes - num_of_dimes
+
+                        # Nickels
                         nickels = nickels - num_of_nickels
 
                         # updating total of purchase prices
                         sum_of_price = sum_of_price + price
-                        print('price',price)
-                        print('sum_of_price',sum_of_price)
 
-                        print("Please take the change below.")
-                        if num_of_quarters != 0:
-                            print(f'   {int(num_of_quarters)} Quarters')
-                        if num_of_dimes != 0:
-                            print(f'   {int(num_of_dimes)} dimes')
-                        if num_of_nickels != 0:
-                            print(f'   {int(num_of_nickels)} nickels')
+                        # giving change
+                        change_to_take()
+
                         break
             except ValueError:
                 print(f'Illegal selection: {entered_payment}')
-
 
 #      GROUP 8 MEMBERS
 # Kisakye Joshua 2021/BSE/062/PS
@@ -177,7 +258,7 @@ while not_quit:
 # Amos Merber 2021/BSE/018/PS
 # Ntwari Reagan 2021/BSE/134/PS
 
-#DATE: 21/02/2022
+# DATE: 21/02/2022
 
 
 
